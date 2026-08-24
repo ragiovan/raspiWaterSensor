@@ -13,9 +13,13 @@ ECHO_PIN = 1
 LED_PIN = "LED"
 
 # --- Tank & Calibration Constants ---
-TANK_DEPTH_CM = 150.0       # Total depth of tank
-SENSOR_OFFSET_CM = 25.0     # Distance from sensor face to 100% full mark (blind zone standoff)
-NUM_SAMPLES = 5             # Moving average sample count
+# Calibrated against the actual bucket (14.25in = 36.2cm tall): empty reads
+# ~37.1cm from the sensor, so SENSOR_OFFSET_CM is that minus the bucket depth.
+# Note the sensor's ~20cm minimum range means anything above ~47% full is
+# already unreadable directly -- see take_trend_sample's extrapolation.
+TANK_DEPTH_CM = 36.2         # Bucket depth, sensor to 100%-full mark
+SENSOR_OFFSET_CM = 0.9       # Distance from sensor face to 100% full mark
+NUM_SAMPLES = 5              # Moving average sample count
 
 # --- Alert Thresholds ---
 HIGH_WATER_ALERT_PCT = 90.0  # Alert when tank exceeds 90%
